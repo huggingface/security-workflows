@@ -1,0 +1,63 @@
+---
+name: Reusable Octoscan Workflow Security Analysis
+
+on:
+  workflow_call:
+    inputs:
+      target:
+        description: 'Target directory to scan'
+        required: false
+        type: string
+        default: '.github/workflows'
+      disable_rules:
+        description: 'Rules to disable (comma-separated)'
+        required: false
+        type: string
+        default: 'shellcheck,local-action,runner-label'
+      filter_triggers:
+        description: 'Filter by trigger type (external, allnopr, or empty for all)'
+        required: false
+        type: string
+        default: ''
+      generate_summary:
+        description: 'Generate detailed summary'
+        required: false
+        type: boolean
+        default: true
+
+permissions:
+  security-events: write
+  actions: read
+  contents: read
+
+jobs:
+  octoscan:
+    name: Scan Workflows
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Run Octoscan
+        id: octoscan
+        uses: synacktiv/action-octoscan@v1
+        with:
+          disable_rules: ${{ inputs.disable_rules }}
+          filter_triggers: ${{ inputs.filter_triggers }}
+      
+      - name: Upload SARIF to Security tab
+        if: always()
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: "${{ steps.octoscan.outputs.sarif_output }}"
+          category: octoscan
+      
+      - name: Upload results artifact
+        if: always() && inputs.generate_summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: octoscan-results
+          path: results.json
+          retention-days: 30
+          if-no-files-found: ignore

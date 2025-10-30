@@ -1,0 +1,23 @@
+---
+name: GitHub Actions Security Analysis with zizmor 🌈
+
+on:
+  workflow_dispatch:
+  
+  push:
+    branches: ["main"]
+    paths:
+      - '.github/workflows/**'
+  
+  pull_request:
+    branches: ["**"]
+    paths:
+      - '.github/workflows/**'
+
+jobs:
+  zizmor:
+    uses: huggingface/security-workflows/.github/workflows/zizmor-reusable.yml@main
+    permissions:
+      security-events: write
+      actions: read
+      contents: read

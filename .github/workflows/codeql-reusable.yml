@@ -1,0 +1,63 @@
+---
+name: Reusable CodeQL Security Analysis
+
+on:
+  workflow_call:
+    inputs:
+      languages:
+        description: 'Languages as JSON array: ["actions","python","javascript"]'
+        required: false
+        type: string
+        default: '["actions"]'
+      queries:
+        description: 'Query suite'
+        required: false
+        type: string
+        default: 'security-extended,security-and-quality'
+
+permissions:
+  security-events: write
+  packages: read
+  actions: read
+  contents: read
+
+jobs:
+  analyze:
+    name: Analyze ${{ matrix.language }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ${{ fromJSON(inputs.languages) }}
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v4
+        with:
+          languages: ${{ matrix.language }}
+          queries: ${{ inputs.queries }}
+          packs: codeql/${{ matrix.language }}-queries
+      
+       # only for compiled languages         
+       #- name: Autobuild
+       #  uses: github/codeql-action/autobuild@v3
+      
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:${{ matrix.language }}"
+          upload: always
+          output: sarif-results
+      
+      - name: Upload results artifact
+        if: always()
+        uses: actions/upload-artifact@v5
+        with:
+          name: codeql-results-${{ matrix.language }}
+          path: sarif-results/${{ matrix.language }}.sarif
+          retention-days: 30
