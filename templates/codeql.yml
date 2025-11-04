@@ -20,5 +20,5 @@ jobs:
       actions: read
       contents: read
     with:
-      languages: '["actions", "python"]'
+      languages: '["actions"]'
       queries: 'security-extended,security-and-quality'
