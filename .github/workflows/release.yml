@@ -20,8 +20,8 @@ jobs:
         with:
           fetch-depth: 0
       
-      - name: Semantic Release
-        uses: cycjimmy/semantic-release-action@v5
+      - name: Release
+        uses: huggingface/semver-release-action@latest
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
