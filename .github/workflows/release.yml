@@ -12,7 +12,7 @@ jobs:
   release:
     name: Create Github release
     runs-on:
-      group: cpu-low
+      group: aws-general-8-plus
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
