@@ -10,5 +10,6 @@ Centralized security workflows: CodeQL analysis, Octoscan, and permissions audit
 ## Coming soon
 - **How to use it**
 - **Summary of Github best practises**
+- **CodeQL auery help for Github Actions** https://codeql.github.com/codeql-query-help/actions/
 - **How to resolve issues**
 - **How to configure CodeQL to scanning repo's code**

@@ -1,5 +1,5 @@
 ---
-name: CodeQL Security Analysis
+name: CodeQL Security Analysis For Github Actions
 
 on:
   push:

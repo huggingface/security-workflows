@@ -1,5 +1,5 @@
 ---
-name: Reusable CodeQL Security Analysis
+name: Reusable CodeQL Security Analysis For Github Actions
 
 on:
   workflow_call:
@@ -42,11 +42,8 @@ jobs:
           languages: ${{ matrix.language }}
           queries: ${{ inputs.queries }}
           packs: codeql/${{ matrix.language }}-queries
-      
-       # only for compiled languages         
-       #- name: Autobuild
-       #  uses: github/codeql-action/autobuild@v3
-      
+          config: ${{ vars.CODEQL_ORG_CONFIG }}
+
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4
         with:
