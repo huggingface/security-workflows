@@ -1,0 +1,23 @@
+name: Release module
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create Github release
+    runs-on:
+      group: cpu-low
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Release
+        uses: huggingface/semver-release-action@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
