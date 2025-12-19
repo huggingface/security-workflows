@@ -31,5 +31,5 @@ A new release and tag will be created according the last commits.
 - types other than fix: and feat: are allowed, for example @commitlint/config-conventional (based on the Angular convention) recommends build:, chore:, ci:, docs:, style:, refactor:, perf:, test:, and others.
 
 ## How create a release (workflow dispatch)
--- execute release.yml 
--- and execute to update the major version vX update-major-version-tag.yml
+- execute release.yml 
+- and execute to update the major version vX update-major-version-tag.yml
