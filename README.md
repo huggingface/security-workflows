@@ -19,16 +19,17 @@ Centralized security workflows: CodeQL analysis, Octoscan, and permissions audit
     - unpinned-tag => because if you add commit sha instead of version, we got api errors because 
 
 ## How to publish
-
 Releases are managed by *Semantic release.*
 
 Each commit **must** follow the [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-
 To release a new version, you have to go on the [Release action](https://github.com/huggingface/terraform-gcp-gke-utils/actions/workflows/release.yml), and click on the `Run workflow` button.
-
 A new release and tag will be created according the last commits. 
 
 - **fix:** a commit of the type fix patches a bug in your codebase 
 - **feat:**  a commit of the type feat introduces a new feature to the codebase
 - **BREAKING CHANGE:** a commit that has a footer BREAKING CHANGE:, or appends a ! after the type/scope, introduces a breaking API change 
 - types other than fix: and feat: are allowed, for example @commitlint/config-conventional (based on the Angular convention) recommends build:, chore:, ci:, docs:, style:, refactor:, perf:, test:, and others.
+
+## How create a release (workflow dispatch)
+-- execute release.yml 
+-- and execute to update the major version vX update-major-version-tag.yml
