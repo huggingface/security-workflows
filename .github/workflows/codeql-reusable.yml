@@ -16,7 +16,7 @@ on:
         default: 'security-extended,security-and-quality'
       runner:
         description: 'Choose a runner type'
-        required: true
+        required: false
         type: string
         default: 'ubuntu-latest'
 
