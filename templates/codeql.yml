@@ -22,3 +22,4 @@ jobs:
     with:
       languages: '["actions"]'
       queries: 'security-extended,security-and-quality'
+      runner: 'ubuntu-latest' #optional if need custom runner
