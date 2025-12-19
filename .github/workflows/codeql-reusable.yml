@@ -14,6 +14,11 @@ on:
         required: false
         type: string
         default: 'security-extended,security-and-quality'
+      runner:
+        description: 'Choose a runner type'
+        required: true
+        type: string
+        default: 'ubuntu-latest'
 
 permissions:
   security-events: write
@@ -24,7 +29,7 @@ permissions:
 jobs:
   analyze:
     name: Analyze ${{ matrix.language }}
-    runs-on: ubuntu-latest
+    runs-on: ${{ inputs.runner }}
     timeout-minutes: 360
     
     strategy:
