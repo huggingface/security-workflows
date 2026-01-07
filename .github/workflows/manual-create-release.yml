@@ -1,5 +1,5 @@
 ---
-name: Auto create release
+name: Maunual Create release
 
 on:
   workflow_dispatch:
