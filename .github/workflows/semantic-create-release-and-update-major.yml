@@ -1,4 +1,4 @@
-name: Release version and update major tag
+name: Release version and update major tag with semantic approach
 
 on:
   workflow_dispatch:
