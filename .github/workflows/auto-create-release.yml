@@ -1,0 +1,69 @@
+---
+name: Auto create release
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  release:
+    name: Create Github release
+    runs-on:
+      group: aws-general-8-plus
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      
+      - name: Release
+        uses: huggingface/semver-release-action@latest
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    #   - name: Update major version tag
+    #     if: steps.semantic.outputs.new_release_published == 'true'
+    #     env:
+    #       VERSION: ${{ steps.semantic.outputs.new_release_version }}
+    #     run: |
+    #       git config user.name "github-actions[bot]"
+    #       git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+    #       # extract major version
+    #       MAJOR=$(echo $VERSION | cut -d. -f1)
+          
+    #       echo "📦 New release: v$VERSION"
+    #       echo "🏷️  Updating major tag: v$MAJOR"
+          
+    #       # Create or update the major version tag to point to the new version
+    #       git tag -f "v$MAJOR" "v$VERSION"
+    #       git push origin "v$MAJOR" --force
+          
+    #       echo "✅ Tag v$MAJOR now points to v$VERSION"
+      
+    #   - name: Create summary
+    #     if: steps.semantic.outputs.new_release_published == 'true'
+    #     run: |
+    #       echo "## Release Published" >> $GITHUB_STEP_SUMMARY
+    #       echo "" >> $GITHUB_STEP_SUMMARY
+    #       echo "**Version:** \`v${{ steps.semantic.outputs.new_release_version }}\`" >> $GITHUB_STEP_SUMMARY
+    #       echo "" >> $GITHUB_STEP_SUMMARY
+    #       echo "**Major tag:** \`v$(echo ${{ steps.semantic.outputs.new_release_version }} | cut -d. -f1)\` updated" >> $GITHUB_STEP_SUMMARY
+    #       echo "" >> $GITHUB_STEP_SUMMARY
+    #       echo "### Usage in workflows:" >> $GITHUB_STEP_SUMMARY
+    #       echo "\`\`\`yaml" >> $GITHUB_STEP_SUMMARY
+    #       echo "uses: ${{ github.repository }}/.github/workflows/your-workflow.yml@v$(echo ${{ steps.semantic.outputs.new_release_version }} | cut -d. -f1)" >> $GITHUB_STEP_SUMMARY
+    #       echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+      
+      - name: No release published
+        if: steps.semantic.outputs.new_release_published != 'true'
+        run: |
+          echo "## No Release Published" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "No changes detected that warrant a new release." >> $GITHUB_STEP_SUMMARY
