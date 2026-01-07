@@ -20,3 +20,8 @@ jobs:
       languages: '["actions"]'
       queries: 'security-extended,security-and-quality'
       runner: 'ubuntu-latest' #optional if need custom runner
+      use-runner-group: false #optional
+
+      # if need to use runner group:
+      # runner: 'cpu-low'
+      # use-runner-group: true
