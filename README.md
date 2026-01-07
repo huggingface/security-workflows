@@ -22,10 +22,10 @@ Centralized security workflows: CodeQL analysis, Octoscan, and permissions audit
 Releases are managed by *Semantic release.*
 
 Each commit **must** follow the [Conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
-To release a new version, you have to go on the [Release version](https://github.com/huggingface/security-workflows/actions/workflows/release.yml), and click on the `Run workflow` button.
+To release a new version, you have to go on the [Release version](https://github.com/huggingface/security-workflows/blob/main/.github/workflows/manual-create-release.yml), and click on the `Run workflow` button.
 A new release and tag will be created according the last commits. 
 
-To add a new major version, execute [New major version](https://github.com/huggingface/security-workflows/actions/workflows/update-major-version-tag.yml)
+To add a new major version, execute [New major version](https://github.com/huggingface/security-workflows/blob/main/.github/workflows/update-major-version-tag.yml)
 
 - **fix:** a commit of the type fix patches a bug in your codebase 
 - **feat:**  a commit of the type feat introduces a new feature to the codebase
