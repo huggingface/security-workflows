@@ -19,6 +19,11 @@ on:
         required: false
         type: string
         default: 'ubuntu-latest'
+      use-runner-group:
+        description: 'Set to true if runner is a group name'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   security-events: write
@@ -29,7 +34,8 @@ permissions:
 jobs:
   analyze:
     name: Analyze ${{ matrix.language }}
-    runs-on: ${{ inputs.runner }}
+    runs-on:
+      ${{ inputs.use-runner-group && fromJSON(format('{{"group":"{0}"}}', inputs.runner)) || inputs.runner }}
     timeout-minutes: 360
     
     strategy:
