@@ -35,9 +35,10 @@ jobs:
         uses: astral-sh/setup-uv@85856786d1ce8acfbcc2f13a5f3fbd6b938f9f41 # v7.1.2
       
       - name: Run zizmor 🌈
-        run: uvx zizmor --config zizmor/.zizmor.yml --format=sarif ${{ inputs.workflow_paths }} > results.sarif 
+        run: uvx zizmor --config zizmor/.zizmor.yml --format=sarif "$WORKFLOW_PATHS" > results.sarif 
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WORKFLOW_PATHS: ${{ inputs.workflow_paths }}
       
       - name: Upload SARIF file
         if: always()
