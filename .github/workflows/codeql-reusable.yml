@@ -10,10 +10,15 @@ on:
         type: string
         default: '["actions"]'
       queries:
-        description: 'Query suite'
+        description: 'Query suite per language as JSON object: {"actions":"security-extended,security-and-quality","python":"security-extended"}'
         required: false
         type: string
-        default: 'security-extended,security-and-quality'
+        default: '{}'
+      packs:
+        description: 'Query packs per language as JSON object: {"actions":"codeql/actions-queries","python":"codeql/python-queries"}'
+        required: false
+        type: string
+        default: '{}'
       runner:
         description: 'Choose a runner type'
         required: false
@@ -51,8 +56,8 @@ jobs:
         uses: github/codeql-action/init@v4
         with:
           languages: ${{ matrix.language }}
-          queries: ${{ inputs.queries }}
-          packs: codeql/${{ matrix.language }}-queries
+          queries: ${{ fromJSON(inputs.queries)[matrix.language] || '' }}
+          packs: ${{ fromJSON(inputs.packs)[matrix.language] || format('codeql/{0}-queries', matrix.language) }}
           config: ${{ vars.CODEQL_ORG_CONFIG }}
 
       - name: Perform CodeQL Analysis
