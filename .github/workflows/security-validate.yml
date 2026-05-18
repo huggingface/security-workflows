@@ -1,0 +1,7 @@
+name: security-validate
+on: 
+  - pull_request
+  - workflow_dispatch
+jobs:
+  validate:
+    uses: huggingface/deny-actions-registry/.github/workflows/validate.yml@52303e1e73bbd0c220abab05f18c71fd4ae23c65
