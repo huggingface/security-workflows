@@ -4,4 +4,4 @@ on:
   - workflow_dispatch
 jobs:
   validate:
-    uses: huggingface/deny-actions-registry/.github/workflows/validate.yml@60d5719f7b43460684e1989c696c941a89a3c49d
+    uses: huggingface/deny-actions-registry/.github/workflows/validate.yml@3712b595d3b1c6b06b655405e8416a481827f57a
