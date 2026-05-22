@@ -26,22 +26,29 @@ jobs:
           fetch-depth: 0
       
       - name: Check if source tag exists
+        env:
+          SOURCE_TAG: ${{ inputs.source_tag }}
         run: |
-          if ! git rev-parse "${{ inputs.source_tag }}" >/dev/null 2>&1; then
-            echo "Tag ${{ inputs.source_tag }} does not exist."
+          if ! git rev-parse "$SOURCE_TAG" >/dev/null 2>&1; then
+            echo "Tag $SOURCE_TAG does not exist."
             exit 1
           fi
-          echo "Source tag found: ${{ inputs.source_tag }}"
+          echo "Source tag found: $SOURCE_TAG"
       
       - name: Delete existing major tag (if exists)
+        env:
+          MAJOR_TAG: ${{ inputs.major_tag }}
         run: |
-          if git rev-parse "${{ inputs.major_tag }}" >/dev/null 2>&1; then
-            git push origin :refs/tags/${{ inputs.major_tag }} || true
-            echo "Tag ${{ inputs.major_tag }} deleted"
+          if git rev-parse "$MAJOR_TAG" >/dev/null 2>&1; then
+            git push origin :refs/tags/$MAJOR_TAG || true
+            echo "Tag $MAJOR_TAG deleted"
           fi
       
       - name: Create and push major tag
+        env:
+          MAJOR_TAG: ${{ inputs.major_tag }}
+          SOURCE_TAG: ${{ inputs.source_tag }}
         run: |
-          git tag -f ${{ inputs.major_tag }} ${{ inputs.source_tag }}
-          git push origin ${{ inputs.major_tag }} --force
-          echo "Tag ${{ inputs.major_tag }} has been created and redirect to ${{ inputs.source_tag }}"
+          git tag -f $MAJOR_TAG $SOURCE_TAG
+          git push origin $MAJOR_TAG --force
+          echo "Tag $MAJOR_TAG has been created and redirect to $SOURCE_TAG"
