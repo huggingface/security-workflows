@@ -26,10 +26,10 @@ jobs:
     
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       
       - name: Run Advisor
-        uses: GitHubSecurityLab/actions-permissions/advisor@v1
+        uses: GitHubSecurityLab/actions-permissions/advisor@bf82d13b9b10051d224345ab9184f5ede0a94289 # v1.0.2-beta9
         with:
           name: ${{ inputs.workflow_name }}
           count: ${{ inputs.run_count }}

@@ -1,0 +1,11 @@
+version: 3
+
+# Self-pin: this repo eats its own dog food.
+# Every `uses:` in our own workflows must be pinned to a 40-char SHA.
+
+files:
+  - pattern: .github/workflows/*.yml
+  - pattern: .github/workflows/*.yaml
+
+min_age:
+  value: 7  # refuse adopting a release younger than 7 days
