@@ -25,14 +25,16 @@ on:
         type: boolean
         default: false
 
-permissions:
-  security-events: write
-  packages: read
-  actions: read
-  contents: read
+
+permissions: {}
 
 jobs:
   analyze:
+    permissions:
+      actions: read
+      contents: read
+      packages: read
+      security-events: write
     name: Analyze ${{ matrix.language }}
     runs-on:
       ${{ inputs.use-runner-group && fromJSON(format('{{"group":"{0}"}}', inputs.runner)) || inputs.runner }}
