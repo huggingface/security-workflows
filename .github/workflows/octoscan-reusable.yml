@@ -26,13 +26,15 @@ on:
         type: boolean
         default: true
 
-permissions:
-  security-events: write
-  actions: read
-  contents: read
+
+permissions: {}
 
 jobs:
   octoscan:
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     name: Scan Workflows
     runs-on: ubuntu-latest
     

@@ -15,13 +15,15 @@ on:
         type: string
         default: '.github/workflows'
 
-permissions:
-  security-events: write
-  contents: read
-  actions: read
+
+permissions: {}
 
 jobs:
   zizmor:
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
     name: zizmor analysis
     runs-on: ubuntu-latest
     
