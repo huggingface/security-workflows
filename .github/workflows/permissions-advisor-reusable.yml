@@ -15,12 +15,14 @@ on:
         type: number
         default: 10
 
-permissions:
-  actions: read
-  contents: read
+
+permissions: {}
 
 jobs:
   advisor:
+    permissions:
+      actions: read
+      contents: read
     name: Analyze Permissions
     runs-on: ubuntu-latest
     
