@@ -23,7 +23,7 @@ jobs:
           fetch-depth: 0
       
       - name: Release
-        uses: huggingface/semver-release-action@latest
+        uses: huggingface/semver-release-action@1a164868d29fb12acd39d70e8e47326db9d78ad2  # latest
         id: semantic
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
